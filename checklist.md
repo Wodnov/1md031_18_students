@@ -8,7 +8,7 @@ Before you submit the final version of your labs, make sure that your project fu
 
 ## 01 Git
 
-- [ ] Fork and clone the 1md032_18_students repository
+- [x] Fork and clone the 1md032_18_students repository
 
 
 ## 02 HTML
