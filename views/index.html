@@ -1,47 +1,37 @@
 <!DOCTYPE html>
+<!--kommentar-->
 <html lang="en">
     <head>
-        <link rel="stylesheet" type="text/css" href="/Users/leohvs/Documents/Lab/My_rep/public/css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
         <title>Ham och Burger</title>
         <meta charset="utf-8"/>
     </head>
     <body>
         <main>
-            <h1>Välkommen till Ham och Burger</h1>
+            <header><h1>Välkommen till Ham och Burger</h1>
+                <img src="https://aktuelltfokus.se/wp-content/uploads/2016/10/livecrowd.jpg" id="bild"></header>
             <h4>Välj din burgare</h4>
             Här väljer du vilken burgare du vill ha
         </main>
         <section id="Burgare">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Dödsburgaren</th>
-                        <th>Daburger</th>
-                        <th>Den gröna</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><img src="https://www.max.se/ImageVaultFiles/id_702/cf_22/Burgers-Beefburger.jpg" width=200></td>
-                        <td><img src="https://www.max.se/ImageVaultFiles/id_706/cf_22/Burgers-Maxburger.jpg" width=200></td>
-                        <td><img src="https://www.max.se/ImageVaultFiles/id_720/cf_22/Meal-Delifresh-Low-Carb.jpg" width=200></td>
-                    </tr>
-                    <tr>
-                        <td><ul>
-                            <li>Gluten</li>
-                            <li>Laktos</li>
-                            <li>Tomat</li>
-                            <li>Kött</li>
-                            </ul></td>
-                        <td><ul>
-                            <li>Allt du vill ha</li>
-                            </ul></td>
-                        <td><ul>
-                            <li>Bara grönt</li>
-                            </ul></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="wrapper">
+                <div class="box a"><p class="namn"> Dödsburgaren </p>
+                    <img src="https://www.max.se/ImageVaultFiles/id_702/cf_22/Burgers-Beefburger.jpg" width="200">
+                    <p class= "allergier"> Gluten </p>
+                    <p class= "allergier"> Laktos </p>
+                    <p> Tomat </p>
+                    <p> Kött </p></div>
+
+                <div class="box b"><p class="namn"> Daburger </p>
+                    <img src="https://www.max.se/ImageVaultFiles/id_706/cf_22/Burgers-Maxburger.jpg" width="200">
+                    <p>Allt du vill ha</p>
+                </div>
+
+                <div class="box c"><p class="namn"> Den Gröne </p>
+                    <img src="https://www.max.se/ImageVaultFiles/id_720/cf_22/Meal-Delifresh-Low-Carb.jpg" width="200">
+                    <p>Bara grönt</p>
+                </div></div>
+
         </section>
         <section id="Kontakt">
             <h4>Kundinformation</h4>
@@ -60,7 +50,7 @@
                 </p>
                 <p>
                     <label for="email">E-mail</label><br>
-                    <input type="text" id="email" name="em" placeholder="E-mail">
+                    <input type="text" id="email" name="em" required="required" placeholder="E-mail">
                 </p>
                 <p>
                     <label for="adress">Adress</label><br>
@@ -86,7 +76,7 @@
             </p>
         </section>
     </body>
-    <footer>
+    <footer class="footer">
         © 2018 Hoffen Corporations
     </footer>
 </html>
