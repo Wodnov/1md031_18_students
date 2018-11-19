@@ -2,71 +2,78 @@
 <!--kommentar-->
 <html lang="en">
     <head>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <script src="js/js_script.js"></script>
-        <script src="https://vuejs.org/js/vue.js"></script>
-        <script src="js/vue_script.js"></script>
-        <title>Ham och Burger</title>
         <meta charset="utf-8"/>
+
+        <script type="text/javascript" src="js/menu.js"></script>
+        <script src="https://vuejs.org/js/vue.js" defer></script>
+        <script src="js/vue_script.js" defer></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/deli-very.css">
+        <script src="/vue/vue.js" defer></script>
+        <script src="/socket.io/socket.io.js" defer></script>
+        <script src="js/deli-very.js" defer></script>
+
+        <title>Ham och Burger</title>
     </head>
     <body>
-        <main>
-            <header><h1>Välkommen till Ham och Burger</h1>
-                <img src="https://aktuelltfokus.se/wp-content/uploads/2016/10/livecrowd.jpg" id="bild"></header>
-            <h4>Välj din burgare</h4>
-            Här väljer du vilken burgare du vill ha
-        </main>
-        <section id="Burgare">
-            <div class="wrapper">
-                <div class="box a"><p class="namn"> Dödsburgaren </p>
-                    <img src="https://www.max.se/ImageVaultFiles/id_702/cf_22/Burgers-Beefburger.jpg" width="300">
-                    <p class= "allergier"> Gluten </p>
-                    <p class= "allergier"> Laktos </p>
-                    <p> Tomat </p>
-                    <p> Kött </p></div>
+        <div id="DADIV">
+            <main>
+                <header>
+                    <h1>Välkommen till Ham och Burger</h1>
+                    <img src="https://aktuelltfokus.se/wp-content/uploads/2016/10/livecrowd.jpg" id="bild">
+                </header>
+                <h4>Välj din burgare</h4>
+                Här väljer du vilken burgare du vill ha
+            </main>
 
-                <div class="box b"><p class="namn"> Daburger </p>
-                    <img src="https://www.max.se/ImageVaultFiles/id_706/cf_22/Burgers-Maxburger.jpg" width="300">
-                    <p>Allt du vill ha</p>
-                </div>
-
-                <div class="box c"><p class="namn"> Den Gröne </p>
-                    <img src="https://www.max.se/ImageVaultFiles/id_720/cf_22/Meal-Delifresh-Low-Carb.jpg" width="300">
-                    <p>Bara grönt</p>
+            <div id="meny">
+                <div class="box" align= center v-for="burger in menyn">
+                    <p>{{burger.name}}</p>
+                    <img :src="burger.img" width="200">
+                    <p> {{burger.cal}} kCal</p>
+                    <p v-if="burger.lactose">Laktos</p>
+                    <p v-if="burger.gluten">Gluten</p>
+                    <input type= "checkbox" :value= "burger.name" v-model= "checked">
                 </div></div>
 
-        </section>
-        <section id="Kontakt">
-            <h4>Kundinformation</h4>
-            <p>Här anger du nödvändig information:</p>
-            <form>
-                <p>
-                    <label for="kön">Kön</label><br>
-                    <input type="radio" name="gender" value="man"> Man<br>
-                    <input type="radio" name="gender" value="kvinna"> Kvinna<br>
-                    <input type="radio" name="gender" value="inget"> Inget<br>
-                    <input type="radio" name="gender" checked="checked" value="vill ej uppge"> Vill ej uppge
-                </p>
-                <p>
-                    <label for="namn">För- och efternamn</label><br>
-                    <input type="text" id="name" name="nm" required="required" placeholder="För- och efternamn">
-                </p>
-                <p>
-                    <label for="email">E-mail</label><br>
-                    <input type="text" id="email" name="em" required="required" placeholder="E-mail">
-                </p>
-                <p>
-                    <label for="adress">Adress</label><br>
-                    <input type="text" id="adress" name="ad" required="required" placeholder="Adress">
-                </p>
-                <p>
-                    <label for="telefon">Telefon</label><br>
-                    <input type="number" id="telefon" name="tf" required="required" placeholder="Telefon">
-                </p>
-            </form>
-        </section>
-        <section id="Betalning">
-            <p>
+            <section id="Kontakt">
+                <h4>Kundinformation</h4>
+                <p>Här anger du nödvändig information:</p>
+                <form>
+                    <p>
+                        <label for="kön">Kön</label><br>
+                        <input type="radio" value= "man" v-model= "genderInfo"> Man<br>
+                        <input type="radio" value="kvinna" v-model= "genderInfo"> Kvinna<br>
+                        <input type="radio" value="inget" v-model= "genderInfo"> Inget<br>
+                        <input type="radio" value="vill ej uppge" v-model= "genderInfo"> Vill ej uppge
+                    </p>
+                    <p>
+                        <label for="namn">För- och efternamn</label><br>
+                        <input v-model= "fullName" placeholder="För- och efternamn">
+                    </p>
+                    <p>
+                        <label for="email">E-mail</label><br>
+                        <input v-model= "emailAdress" placeholder="E-mail">
+                    </p>
+                    <p>
+                        <label for="telefon">Telefon</label><br>
+                        <input v-model= "phoneNumber" placeholder="Telefon">
+                    </p>
+                </form>
+                <h1> Click in the map! </h1>
+                <a href="/dispatcher" target="_blank">Open dispatcher in new window</a>.
+                <div class="view-box">
+                    <div id="dots" v-on:click="addOrder">
+                        <div 
+                             v-for="(order, key) in orders"
+                             v-bind:style="{ left: order.details.x + 'px', top: order.details.y + 'px'}">
+                            {{key}}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div id="Betalning">
                 <label for="betalningsmetod">Hur vill du betala?</label><br>
                 <select id="betalningsmetod" name="rcp">
                     <option>Kort</option>
@@ -75,9 +82,12 @@
                     <option>Arbete</option>
                     <option>Springnota</option>
                 </select><br>
-                <input type="submit" value="Skicka">
-            </p>
-        </section>
+                <button v-on:click="markDone()">Klart</button>
+                <p v-for="(value, key) in kontaktinfo">
+                    {{key}}: {{value}}
+                </p>
+            </div>
+        </div>
     </body>
     <footer class="footer">
         © 2018 Hoffen Corporations
